@@ -322,8 +322,14 @@ body {
 }
 
 .book-actions .btn {
-    margin-left: 5px;
-    border-radius: 8px;
+    padding: 5px 8px;
+    border-radius: 6px;
+    transition: all 0.3s ease;
+}
+
+.book-actions .btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(0,0,0,0.2);
 }
 
 .pdf-preview {
@@ -520,4 +526,105 @@ body {
     transform: translateY(-2px);
     box-shadow: 0 5px 15px rgba(253, 203, 110, 0.4);
     color: #2d3436;
+}
+
+/* تنسيقات أزرار الكتب */
+.book-actions {
+    margin-top: 10px;
+    display: flex;
+    gap: 5px;
+    justify-content: center;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+.book-card:hover .book-actions {
+    opacity: 1;
+}
+
+.book-actions .btn {
+    padding: 5px 8px;
+    border-radius: 6px;
+    transition: all 0.3s ease;
+}
+
+.book-actions .btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+}
+
+.book-card {
+    cursor: default;
+    transition: all 0.3s ease;
+}
+
+.book-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 15px 35px rgba(0,0,0,0.1);
+}
+
+/* تحسينات للعارض المستقل */
+.viewer-card {
+    background: white;
+    border-radius: 15px;
+    padding: 20px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+    margin: 20px;
+}
+
+.quick-actions {
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+    justify-content: center;
+    margin-top: 15px;
+}
+
+.quick-action {
+    padding: 8px 15px;
+    border-radius: 20px;
+    text-decoration: none;
+    color: white;
+    font-size: 0.9rem;
+    transition: all 0.3s ease;
+    border: none;
+}
+
+.quick-action:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+    color: white;
+}
+
+.quick-action.primary {
+    background: linear-gradient(135deg, #667eea, #764ba2);
+}
+
+.quick-action.success {
+    background: linear-gradient(135deg, #56ab2f, #a8e6cf);
+}
+
+.quick-action.warning {
+    background: linear-gradient(135deg, #f093fb, #f5576c);
+}
+
+.quick-action.info {
+    background: linear-gradient(135deg, #4facfe, #00f2fe);
+}
+
+@media (max-width: 768px) {
+    .book-actions {
+        opacity: 1;
+        margin-top: 15px;
+    }
+    
+    .quick-actions {
+        flex-direction: column;
+        align-items: center;
+    }
+    
+    .quick-action {
+        width: 80%;
+        text-align: center;
+    }
 }

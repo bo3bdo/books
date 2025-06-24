@@ -186,26 +186,21 @@
                                 
                                 <h6><i class="fas fa-info-circle"></i> الوصف:</h6>
                                 <p id="bookDescription"></p>
-                                
-                                <h6><i class="fas fa-file-alt"></i> عدد الصفحات:</h6>
+                                  <h6><i class="fas fa-file-alt"></i> عدد الصفحات:</h6>
                                 <p id="bookPages"></p>
                                 
                                 <h6><i class="fas fa-hdd"></i> حجم الملف:</h6>
                                 <p id="bookSize"></p>
                                   <h6><i class="fas fa-calendar"></i> تاريخ الرفع:</h6>
                                 <p id="bookDate"></p>
-                                
-                                <h6><i class="fas fa-shield-alt"></i> حالة الحماية:</h6>
-                                <p id="bookProtection"></p>
-                            </div><div class="book-actions mt-3">
-                                <a class="btn btn-primary btn-sm" id="downloadBtn" href="#" target="_blank">
+                            </div><div class="book-actions mt-3">                                <a class="btn btn-primary btn-sm" id="downloadBtn" href="#" target="_blank">
                                     <i class="fas fa-download"></i> تحميل
                                 </a>
                                 <a class="btn btn-success btn-sm" id="viewBtn" href="#" target="_blank">
                                     <i class="fas fa-eye"></i> عرض
                                 </a>
-                                <button class="btn btn-warning btn-sm" onclick="showProtectionModal()">
-                                    <i class="fas fa-shield-alt"></i> حماية
+                                <button class="btn btn-warning btn-sm" onclick="openFullViewer()">
+                                    <i class="fas fa-expand-arrows-alt"></i> عرض مستقل
                                 </button>
                                 <button class="btn btn-info btn-sm" onclick="showWatermarkModal()">
                                     <i class="fas fa-tint"></i> علامة مائية
@@ -223,135 +218,7 @@
                     </div>
                 </div>
             </div>
-        </div>    </div>
-
-    <!-- مودال حماية PDF -->
-    <div class="modal fade" id="protectionModal" tabindex="-1">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title">
-                        <i class="fas fa-shield-alt"></i>
-                        حماية الكتاب بكلمة مرور
-                    </h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
-                </div>                <div class="modal-body">
-                    <form id="protectionForm">
-                        <!-- كلمات المرور -->
-                        <div class="mb-3">
-                            <label for="protectionPassword" class="form-label">
-                                <i class="fas fa-key"></i> كلمة مرور المستخدم (User Password)
-                            </label>
-                            <input type="password" class="form-control" id="protectionPassword" required>
-                            <div class="form-text">مطلوبة لفتح الملف وقراءته</div>
-                        </div>
-                        
-                        <div class="mb-3">
-                            <label for="ownerPassword" class="form-label">
-                                <i class="fas fa-shield-alt"></i> كلمة مرور المالك (Owner Password)
-                            </label>
-                            <input type="password" class="form-control" id="ownerPassword">
-                            <div class="form-text">للتحكم في الصلاحيات والتعديل على الحماية (اختيارية)</div>
-                        </div>
-
-                        <!-- مستوى التشفير -->
-                        <div class="mb-3">
-                            <label for="encryptionLevel" class="form-label">
-                                <i class="fas fa-lock"></i> مستوى التشفير
-                            </label>
-                            <select class="form-select" id="encryptionLevel">
-                                <option value="128">128-bit تشفير قوي (الافتراضي)</option>
-                                <option value="256">256-bit تشفير قوي جداً</option>
-                                <option value="40">40-bit تشفير أساسي</option>
-                            </select>
-                        </div>
-                        
-                        <div class="mb-3">
-                            <label class="form-label">
-                                <i class="fas fa-cogs"></i> الصلاحيات المسموحة
-                            </label>
-                            <div class="row">
-                                <div class="col-md-6">
-                                    <div class="form-check">
-                                        <input class="form-check-input" type="checkbox" id="allowPrinting" checked>
-                                        <label class="form-check-label" for="allowPrinting">
-                                            <i class="fas fa-print"></i> السماح بالطباعة
-                                        </label>
-                                    </div>
-                                    <div class="form-check">
-                                        <input class="form-check-input" type="checkbox" id="allowCopying" checked>
-                                        <label class="form-check-label" for="allowCopying">
-                                            <i class="fas fa-copy"></i> السماح بالنسخ
-                                        </label>
-                                    </div>
-                                    <div class="form-check">
-                                        <input class="form-check-input" type="checkbox" id="allowModifying">
-                                        <label class="form-check-label" for="allowModifying">
-                                            <i class="fas fa-edit"></i> السماح بالتعديل
-                                        </label>
-                                    </div>
-                                    <div class="form-check">
-                                        <input class="form-check-input" type="checkbox" id="allowAnnotating" checked>
-                                        <label class="form-check-label" for="allowAnnotating">
-                                            <i class="fas fa-comment"></i> السماح بإضافة تعليقات
-                                        </label>
-                                    </div>
-                                </div>
-                                <div class="col-md-6">
-                                    <div class="form-check">
-                                        <input class="form-check-input" type="checkbox" id="allowFillingForms" checked>
-                                        <label class="form-check-label" for="allowFillingForms">
-                                            <i class="fas fa-wpforms"></i> السماح بملء النماذج
-                                        </label>
-                                    </div>
-                                    <div class="form-check">
-                                        <input class="form-check-input" type="checkbox" id="allowContentAccessibility" checked>
-                                        <label class="form-check-label" for="allowContentAccessibility">
-                                            <i class="fas fa-universal-access"></i> إمكانية الوصول
-                                        </label>
-                                    </div>
-                                    <div class="form-check">
-                                        <input class="form-check-input" type="checkbox" id="allowDocumentAssembly" checked>
-                                        <label class="form-check-label" for="allowDocumentAssembly">
-                                            <i class="fas fa-puzzle-piece"></i> تجميع المستند
-                                        </label>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        
-                        <div class="alert alert-info">
-                            <i class="fas fa-info-circle"></i>
-                            <strong>ملاحظة:</strong> سيتم إنشاء نسخة جديدة محمية من الكتاب وتحميلها مباشرة. الملف الأصلي لن يتأثر.
-                        </div>
-                        
-                        <div class="text-center">
-                            <button type="submit" class="btn btn-warning">
-                                <i class="fas fa-shield-alt"></i> تطبيق الحماية وتحميل النسخة المشفرة
-                            </button>
-                            <button type="button" class="btn btn-secondary ms-2" data-bs-dismiss="modal">إلغاء</button>
-                        </div>
-                    </form>
-                    
-                    <hr>
-                    
-                    <div class="text-center">
-                        <h6>إزالة الحماية</h6>
-                        <form id="unprotectionForm">
-                            <div class="mb-3">
-                                <input type="password" class="form-control" id="unprotectionPassword" placeholder="كلمة المرور الحالية">
-                            </div>
-                            <button type="submit" class="btn btn-outline-danger">
-                                <i class="fas fa-unlock"></i> إزالة الحماية
-                            </button>
-                        </form>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <!-- مودال العلامة المائية -->
+        </div>    </div>    <!-- مودال العلامة المائية -->
     <div class="modal fade" id="watermarkModal" tabindex="-1">
         <div class="modal-dialog">
             <div class="modal-content">

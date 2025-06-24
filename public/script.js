@@ -18,24 +18,10 @@ function setupEventListeners() {
         uploadArea.addEventListener('dragover', handleDragOver);
         uploadArea.addEventListener('dragleave', handleDragLeave);
         uploadArea.addEventListener('drop', handleDrop);
-    }
-
-    // نموذج الرفع
+    }    // نموذج الرفع
     const uploadForm = document.getElementById('uploadForm');
     if (uploadForm) {
         uploadForm.addEventListener('submit', handleUpload);
-    }
-
-    // نموذج الحماية
-    const protectionForm = document.getElementById('protectionForm');
-    if (protectionForm) {
-        protectionForm.addEventListener('submit', handleProtection);
-    }
-
-    // نموذج إزالة الحماية
-    const unprotectionForm = document.getElementById('unprotectionForm');
-    if (unprotectionForm) {
-        unprotectionForm.addEventListener('submit', handleUnprotection);
     }
 
     // نموذج العلامة المائية
@@ -119,21 +105,11 @@ function displayBooks(booksToShow) {
             </div>
         `;
         return;
-    }    const booksHTML = booksToShow.map(book => {
-        const protectionBadge = book.is_protected 
-            ? '<div class="protection-badge"><i class="fas fa-shield-alt"></i> محمي</div>'
-            : '<div class="unprotected-badge"><i class="fas fa-unlock"></i> غير محمي</div>';
-            
-        const protectionIcon = book.is_protected 
-            ? '<div class="book-protection"><i class="fas fa-shield-alt text-warning" title="كتاب محمي بكلمة مرور"></i></div>' 
-            : '';
-            
-        return `
-        <div class="book-card" onclick="showBookDetails(${book.id})">
+    }    const booksHTML = booksToShow.map(book => `
+        <div class="book-card">
             <div class="book-icon">
                 <i class="fas fa-file-pdf"></i>
                 <div class="book-pages">${book.pages || 0} صفحة</div>
-                ${protectionIcon}
             </div>
             <div class="book-info">
                 <div class="book-title">${book.title}</div>
@@ -142,12 +118,21 @@ function displayBooks(booksToShow) {
                 <div class="book-meta">
                     <span class="book-date">${formatDate(book.upload_date)}</span>
                     <span class="book-size">${formatFileSize(book.file_size)}</span>
-                    ${protectionBadge}
+                </div>
+                <div class="book-actions">
+                    <button class="btn btn-sm btn-primary" onclick="showBookDetails(${book.id})" title="تفاصيل">
+                        <i class="fas fa-info-circle"></i>
+                    </button>
+                    <a class="btn btn-sm btn-success" href="/view/${book.id}" target="_blank" title="عرض مستقل">
+                        <i class="fas fa-external-link-alt"></i>
+                    </a>
+                    <a class="btn btn-sm btn-secondary" href="/api/download/${book.id}" target="_blank" title="تحميل">
+                        <i class="fas fa-download"></i>
+                    </a>
                 </div>
             </div>
         </div>
-        `;
-    }).join('');
+    `).join('');
 
     container.innerHTML = booksHTML;
 }
@@ -214,25 +199,13 @@ function setView(view) {
 // عرض تفاصيل الكتاب
 function showBookDetails(bookId) {
     const book = books.find(b => b.id === bookId);
-    if (!book) return;
-
-    currentBookId = bookId;    // تحديث محتوى المودال
+    if (!book) return;    currentBookId = bookId;    // تحديث محتوى المودال
     document.getElementById('bookModalTitle').textContent = book.title;
     document.getElementById('bookAuthor').textContent = book.author;
     document.getElementById('bookDescription').textContent = book.description || 'لا يوجد وصف';
     document.getElementById('bookPages').textContent = `${book.pages || 0} صفحة`;
     document.getElementById('bookSize').textContent = formatFileSize(book.file_size);
-    document.getElementById('bookDate').textContent = formatDate(book.upload_date);    // إضافة معلومات الحماية
-    const protectionInfo = document.getElementById('bookProtection');
-    if (protectionInfo) {
-        if (book.is_protected) {
-            protectionInfo.innerHTML = `<i class="fas fa-shield-alt text-warning"></i> محمي بكلمة مرور`;
-            protectionInfo.className = 'text-warning';
-        } else {
-            protectionInfo.innerHTML = `<i class="fas fa-unlock text-success"></i> غير محمي`;
-            protectionInfo.className = 'text-success';
-        }
-    }
+    document.getElementById('bookDate').textContent = formatDate(book.upload_date);
 
     // تحديث روابط التحميل والعرض
     const downloadUrl = `/api/download/${bookId}`;
@@ -636,5 +609,12 @@ function setupPasswordStrengthIndicator() {
             strengthIndicator.innerHTML = this.value ? 
                 `<span class="${strength.class}">قوة كلمة المرور: ${strength.text}</span>` : '';
         });
+    }
+}
+
+// فتح العارض المستقل
+function openFullViewer() {
+    if (currentBookId) {
+        window.open(`/view/${currentBookId}`, '_blank');
     }
 }
