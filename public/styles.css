@@ -1,0 +1,523 @@
+/* تنسيقات CSS للمكتبة */
+@import url('https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;600;700&display=swap');
+
+* {
+    font-family: 'Cairo', sans-serif;
+}
+
+body {
+    background-color: #f8f9fa;
+    direction: rtl;
+}
+
+/* شريط التنقل */
+.navbar-brand {
+    font-weight: 700;
+    font-size: 1.5rem;
+}
+
+/* حاوي البحث */
+.search-container {
+    margin-bottom: 2rem;
+}
+
+.search-container .input-group {
+    box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+    border-radius: 10px;
+    overflow: hidden;
+}
+
+.search-container .form-control {
+    border: none;
+    padding: 15px;
+    font-size: 1.1rem;
+}
+
+.search-container .btn {
+    border: none;
+    padding: 15px 25px;
+}
+
+/* بطاقة الإحصائيات */
+.stats-card {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: white;
+    padding: 30px;
+    border-radius: 15px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+    margin-bottom: 2rem;
+}
+
+.stat-item {
+    padding: 20px;
+}
+
+.stat-item i {
+    font-size: 2.5rem;
+    margin-bottom: 10px;
+}
+
+.stat-item h4 {
+    font-size: 2rem;
+    font-weight: 700;
+    margin: 10px 0 5px;
+}
+
+.stat-item p {
+    opacity: 0.9;
+    margin: 0;
+}
+
+/* أزرار التحكم بالعرض */
+.view-controls .btn {
+    margin-left: 5px;
+    border-radius: 8px;
+}
+
+.view-controls .btn.active {
+    background-color: #0d6efd;
+    color: white;
+    border-color: #0d6efd;
+}
+
+/* شبكة الكتب */
+.books-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 20px;
+}
+
+.books-list {
+    display: block;
+}
+
+.book-card {
+    background: white;
+    border-radius: 15px;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.08);
+    transition: all 0.3s ease;
+    overflow: hidden;
+    cursor: pointer;
+}
+
+.book-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 15px 35px rgba(0,0,0,0.15);
+}
+
+.book-icon {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: white;
+    text-align: center;
+    padding: 40px 20px;
+    position: relative;
+}
+
+.book-icon i {
+    font-size: 3rem;
+    margin-bottom: 10px;
+}
+
+.book-pages {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    background: rgba(255,255,255,0.2);
+    padding: 5px 10px;
+    border-radius: 15px;
+    font-size: 0.8rem;
+}
+
+.book-protection {
+    position: absolute;
+    top: 10px;
+    left: 10px;
+    background: rgba(255, 193, 7, 0.9);
+    color: #333;
+    padding: 5px 8px;
+    border-radius: 15px;
+    font-size: 0.7rem;
+}
+
+.book-protection i {
+    font-size: 0.8rem;
+}
+
+.book-info {
+    padding: 20px;
+}
+
+.book-title {
+    font-size: 1.2rem;
+    font-weight: 600;
+    color: #333;
+    margin-bottom: 8px;
+    line-height: 1.3;
+}
+
+.book-author {
+    color: #666;
+    font-size: 0.95rem;
+    margin-bottom: 10px;
+}
+
+.book-description {
+    color: #888;
+    font-size: 0.9rem;
+    margin-bottom: 15px;
+    line-height: 1.4;    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+}
+
+.book-meta {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 0.85rem;
+    color: #999;
+    border-top: 1px solid #eee;
+    padding-top: 15px;
+}
+
+.book-size {
+    background: #f8f9fa;
+    padding: 3px 8px;
+    border-radius: 10px;
+}
+
+.book-protected {
+    background: #fff3cd;
+    color: #856404;
+    padding: 3px 8px;
+    border-radius: 10px;
+    font-size: 0.8rem;
+}
+
+.book-protected i {
+    margin-left: 3px;
+}
+
+/* عرض القائمة */
+.books-list .book-card {
+    display: flex;
+    margin-bottom: 15px;
+    border-radius: 10px;
+}
+
+.books-list .book-icon {
+    flex: 0 0 120px;
+    padding: 30px 20px;
+}
+
+.books-list .book-icon i {
+    font-size: 2rem;
+}
+
+.books-list .book-info {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.books-list .book-meta {
+    border-top: none;
+    padding-top: 0;
+    margin-top: auto;
+}
+
+/* بطاقة الرفع */
+.upload-card {
+    background: white;
+    border-radius: 15px;
+    padding: 40px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+}
+
+.file-upload-area {
+    border: 2px dashed #ddd;
+    border-radius: 10px;
+    padding: 40px;
+    text-align: center;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    background: #fafafa;
+}
+
+.file-upload-area:hover {
+    border-color: #0d6efd;
+    background: #f0f7ff;
+}
+
+.file-upload-area.dragover {
+    border-color: #0d6efd;
+    background: #e7f3ff;
+}
+
+.upload-content i {
+    font-size: 3rem;
+    color: #0d6efd;
+    margin-bottom: 15px;
+}
+
+.upload-content p {
+    margin: 0;
+    color: #666;
+}
+
+.file-info {
+    background: #e7f3ff;
+    border: 1px solid #b3d7ff;
+    border-radius: 8px;
+    padding: 10px;
+    margin-top: 15px;
+    color: #0d6efd;
+}
+
+/* رسائل التنبيه */
+.alert {
+    border-radius: 10px;
+    border: none;
+}
+
+.alert-success {
+    background: linear-gradient(135deg, #d4edda 0%, #c3e6cb 100%);
+    color: #155724;
+}
+
+.alert-danger {
+    background: linear-gradient(135deg, #f8d7da 0%, #f1aeb5 100%);
+    color: #721c24;
+}
+
+/* المودال */
+.modal-content {
+    border-radius: 15px;
+    border: none;
+}
+
+.modal-header {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: white;
+    border-radius: 15px 15px 0 0;
+}
+
+.book-info h6 {
+    color: #333;
+    font-weight: 600;
+    margin-bottom: 5px;
+    margin-top: 15px;
+}
+
+.book-info h6:first-child {
+    margin-top: 0;
+}
+
+.book-info p {
+    color: #666;
+    margin-bottom: 0;
+}
+
+.book-actions .btn {
+    margin-left: 5px;
+    border-radius: 8px;
+}
+
+.pdf-preview {
+    border-radius: 10px;
+    overflow: hidden;
+}
+
+/* حالة التحميل */
+.loading {
+    text-align: center;
+    padding: 40px;
+    color: #666;
+}
+
+.loading i {
+    font-size: 2rem;
+    margin-bottom: 15px;
+    animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+    from { transform: rotate(0deg); }
+    to { transform: rotate(360deg); }
+}
+
+/* حالة فارغة */
+.empty-state {
+    text-align: center;
+    padding: 60px 20px;
+    color: #666;
+}
+
+.empty-state i {
+    font-size: 4rem;
+    margin-bottom: 20px;
+    color: #ddd;
+}
+
+.empty-state h4 {
+    margin-bottom: 15px;
+    color: #333;
+}
+
+/* تنسيقات إضافية للحماية المتقدمة */
+.protection-features {
+    border: 2px solid #ffc107;
+    border-radius: 10px;
+    padding: 20px;
+    margin: 20px 0;
+    background: linear-gradient(135deg, #fff3cd 0%, #ffeaa7 100%);
+}
+
+.encryption-level-badge {
+    display: inline-block;
+    padding: 5px 10px;
+    border-radius: 15px;
+    font-size: 0.8rem;
+    font-weight: bold;
+    margin-left: 10px;
+}
+
+.encryption-40bit {
+    background-color: #dc3545;
+    color: white;
+}
+
+.encryption-128bit {
+    background-color: #ffc107;
+    color: #212529;
+}
+
+.encryption-256bit {
+    background-color: #28a745;
+    color: white;
+}
+
+.permissions-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 10px;
+    margin-top: 15px;
+}
+
+.form-check-label {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    cursor: pointer;
+    padding: 8px;
+    border-radius: 5px;
+    transition: background-color 0.2s;
+}
+
+.form-check-label:hover {
+    background-color: rgba(0,123,255,0.1);
+}
+
+.form-check-label i {
+    width: 20px;
+    text-align: center;
+}
+
+.security-info {
+    background: linear-gradient(135deg, #e3f2fd 0%, #bbdefb 100%);
+    border: 1px solid #2196f3;
+    border-radius: 8px;
+    padding: 15px;
+    margin: 15px 0;
+}
+
+.password-strength {
+    margin-top: 5px;
+    font-size: 0.8rem;
+}
+
+.strength-weak { color: #dc3545; }
+.strength-medium { color: #ffc107; }
+.strength-strong { color: #28a745; }
+
+.download-success {
+    animation: downloadPulse 0.6s ease-in-out;
+}
+
+@keyframes downloadPulse {
+    0% { transform: scale(1); }
+    50% { transform: scale(1.05); background-color: #d4edda; }
+    100% { transform: scale(1); }
+}
+
+.protected-badge {
+    background: linear-gradient(135deg, #ff6b6b, #feca57);
+    color: white;
+    padding: 3px 8px;
+    border-radius: 12px;
+    font-size: 0.7rem;
+    font-weight: bold;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+}
+
+.unprotected-badge {
+    background: linear-gradient(135deg, #26de81, #20bf6b);
+    color: white;
+    padding: 3px 8px;
+    border-radius: 12px;
+    font-size: 0.7rem;
+    font-weight: bold;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+}
+
+/* تحسينات إضافية للـ modals */
+.modal-content {
+    border-radius: 15px;
+    box-shadow: 0 20px 60px rgba(0,0,0,0.2);
+}
+
+.modal-header {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: white;
+    border-radius: 15px 15px 0 0;
+}
+
+.form-label {
+    font-weight: 600;
+    color: #495057;
+    margin-bottom: 8px;
+}
+
+.form-control, .form-select {
+    border-radius: 8px;
+    border: 2px solid #e9ecef;
+    transition: all 0.3s ease;
+}
+
+.form-control:focus, .form-select:focus {
+    border-color: #667eea;
+    box-shadow: 0 0 0 0.2rem rgba(102, 126, 234, 0.25);
+}
+
+.btn-warning {
+    background: linear-gradient(135deg, #ffeaa7 0%, #fdcb6e 100%);
+    border: none;
+    color: #2d3436;
+    font-weight: 600;
+    padding: 10px 20px;
+    border-radius: 8px;
+    transition: all 0.3s ease;
+}
+
+.btn-warning:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(253, 203, 110, 0.4);
+    color: #2d3436;
+}
