@@ -8,9 +8,16 @@
     "dev": "nodemon server.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "keywords": ["pdf", "library", "books", "node.js", "express"],
+  "keywords": [
+    "pdf",
+    "library",
+    "books",
+    "node.js",
+    "express"
+  ],
   "author": "Your Name",
-  "license": "MIT",  "dependencies": {
+  "license": "MIT",
+  "dependencies": {
     "express": "^4.18.2",
     "multer": "^1.4.5-lts.1",
     "sqlite3": "^5.1.6",

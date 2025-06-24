@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="ar" dir="rtl">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -8,51 +9,51 @@
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;600;700&display=swap');
-        
+
         * {
             font-family: 'Cairo', sans-serif;
         }
-        
+
         body {
             background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
             margin: 0;
             padding: 0;
             overflow: hidden;
         }
-        
+
         .viewer-container {
             height: 100vh;
             display: flex;
             flex-direction: column;
         }
-        
+
         .viewer-header {
             background: rgba(255, 255, 255, 0.95);
             backdrop-filter: blur(10px);
             padding: 15px 20px;
-            box-shadow: 0 2px 20px rgba(0,0,0,0.1);
+            box-shadow: 0 2px 20px rgba(0, 0, 0, 0.1);
             z-index: 1000;
         }
-        
+
         .viewer-content {
             flex: 1;
             position: relative;
             overflow: hidden;
         }
-        
+
         .pdf-viewer {
             width: 100%;
             height: 100%;
             border: none;
             background: white;
         }
-        
+
         .book-info {
             display: flex;
             align-items: center;
             gap: 20px;
         }
-        
+
         .book-icon {
             width: 50px;
             height: 50px;
@@ -64,25 +65,25 @@
             color: white;
             font-size: 1.5rem;
         }
-        
+
         .book-details h5 {
             margin: 0;
             color: #2c3e50;
             font-weight: 700;
         }
-        
+
         .book-details p {
             margin: 0;
             color: #7f8c8d;
             font-size: 0.9rem;
         }
-        
+
         .viewer-controls {
             display: flex;
             gap: 10px;
             align-items: center;
         }
-        
+
         .control-btn {
             padding: 10px 15px;
             border: none;
@@ -93,22 +94,22 @@
             transition: all 0.3s ease;
             font-size: 0.9rem;
         }
-        
+
         .control-btn:hover {
             transform: translateY(-2px);
-            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
             color: white;
         }
-        
+
         .control-btn.secondary {
             background: linear-gradient(135deg, #95e1d3, #fce38a);
             color: #2c3e50;
         }
-        
+
         .control-btn.danger {
             background: linear-gradient(135deg, #ff6b6b, #ee5a24);
         }
-        
+
         .loading-overlay {
             position: absolute;
             top: 0;
@@ -121,11 +122,11 @@
             justify-content: center;
             z-index: 999;
         }
-        
+
         .loading-spinner {
             text-align: center;
         }
-        
+
         .spinner {
             width: 50px;
             height: 50px;
@@ -135,45 +136,50 @@
             animation: spin 1s linear infinite;
             margin: 0 auto 20px;
         }
-        
+
         @keyframes spin {
-            0% { transform: rotate(0deg); }
-            100% { transform: rotate(360deg); }
+            0% {
+                transform: rotate(0deg);
+            }
+
+            100% {
+                transform: rotate(360deg);
+            }
         }
-        
+
         .error-message {
             text-align: center;
             padding: 40px;
             color: #e74c3c;
         }
-        
+
         .error-message i {
             font-size: 4rem;
             margin-bottom: 20px;
         }
-        
+
         @media (max-width: 768px) {
             .viewer-header {
                 padding: 10px 15px;
             }
-            
+
             .book-info {
                 flex-direction: column;
                 gap: 10px;
                 text-align: center;
             }
-            
+
             .viewer-controls {
                 flex-wrap: wrap;
                 justify-content: center;
             }
-            
+
             .control-btn {
                 padding: 8px 12px;
                 font-size: 0.8rem;
             }
         }
-        
+
         .fullscreen-btn {
             position: fixed;
             bottom: 20px;
@@ -185,17 +191,18 @@
             color: white;
             border: none;
             font-size: 1.2rem;
-            box-shadow: 0 4px 20px rgba(0,0,0,0.3);
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
             transition: all 0.3s ease;
             z-index: 1001;
         }
-        
+
         .fullscreen-btn:hover {
             transform: scale(1.1);
-            box-shadow: 0 6px 25px rgba(0,0,0,0.4);
+            box-shadow: 0 6px 25px rgba(0, 0, 0, 0.4);
         }
     </style>
 </head>
+
 <body>
     <div class="viewer-container">
         <!-- رأس العارض -->
@@ -210,7 +217,7 @@
                         <p id="bookAuthor">...</p>
                     </div>
                 </div>
-                
+
                 <div class="viewer-controls">
                     <a href="/" class="control-btn">
                         <i class="fas fa-home"></i> المكتبة
@@ -230,7 +237,7 @@
                 </div>
             </div>
         </div>
-        
+
         <!-- محتوى العارض -->
         <div class="viewer-content">
             <!-- شاشة التحميل -->
@@ -241,10 +248,10 @@
                     <p>يرجى الانتظار</p>
                 </div>
             </div>
-            
+
             <!-- عارض PDF -->
             <iframe id="pdfViewer" class="pdf-viewer" style="display: none;"></iframe>
-            
+
             <!-- رسالة خطأ -->
             <div id="errorMessage" class="error-message" style="display: none;">
                 <i class="fas fa-exclamation-triangle"></i>
@@ -256,80 +263,80 @@
             </div>
         </div>
     </div>
-    
+
     <!-- زر ملء الشاشة -->
     <button class="fullscreen-btn" onclick="toggleFullscreen()" title="ملء الشاشة">
         <i class="fas fa-expand"></i>
     </button>
-    
+
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
     <script>
         let currentBookId = null;
         let bookInfo = null;
-        
+
         // استخراج معرف الكتاب من الرابط
         function getBookIdFromUrl() {
             const pathParts = window.location.pathname.split('/');
             return pathParts[pathParts.length - 1];
         }
-        
+
         // تحميل معلومات الكتاب
         async function loadBookInfo() {
             try {
                 currentBookId = getBookIdFromUrl();
                 const response = await fetch(`/api/book/${currentBookId}`);
-                
+
                 if (!response.ok) {
                     throw new Error('فشل في جلب معلومات الكتاب');
                 }
-                
+
                 bookInfo = await response.json();
-                
+
                 // تحديث واجهة المستخدم
                 document.getElementById('bookTitle').textContent = bookInfo.title;
                 document.getElementById('bookAuthor').textContent = `بقلم: ${bookInfo.author}`;
                 document.title = `${bookInfo.title} - عارض PDF`;
-                
+
                 // تحميل ملف PDF
                 loadPDF();
-                
+
             } catch (error) {
                 console.error('خطأ في تحميل معلومات الكتاب:', error);
                 showError();
             }
         }
-        
+
         // تحميل ملف PDF
         function loadPDF() {
             const pdfViewer = document.getElementById('pdfViewer');
             const loadingOverlay = document.getElementById('loadingOverlay');
-            
-            pdfViewer.onload = function() {
+
+            pdfViewer.onload = function () {
                 loadingOverlay.style.display = 'none';
                 pdfViewer.style.display = 'block';
             };
-            
-            pdfViewer.onerror = function() {
+
+            pdfViewer.onerror = function () {
                 showError();
             };
-            
+
             // تعيين مصدر PDF
             pdfViewer.src = `/api/download/${currentBookId}`;
         }
-        
+
         // عرض رسالة خطأ
         function showError() {
             document.getElementById('loadingOverlay').style.display = 'none';
             document.getElementById('errorMessage').style.display = 'flex';
         }
-        
+
         // إعادة المحاولة
         function retryLoad() {
             document.getElementById('errorMessage').style.display = 'none';
             document.getElementById('loadingOverlay').style.display = 'flex';
             loadBookInfo();
         }
-        
+
         // تحميل الكتاب
         function downloadBook() {
             if (currentBookId) {
@@ -339,7 +346,7 @@
                 link.click();
             }
         }
-        
+
         // طباعة الكتاب
         function printBook() {
             const iframe = document.getElementById('pdfViewer');
@@ -347,7 +354,7 @@
                 iframe.contentWindow.print();
             }
         }
-        
+
         // مشاركة الكتاب
         function shareBook() {
             if (navigator.share && bookInfo) {
@@ -363,7 +370,7 @@
                 });
             }
         }
-        
+
         // العودة للصفحة السابقة
         function goBack() {
             if (document.referrer) {
@@ -372,11 +379,11 @@
                 window.location.href = '/';
             }
         }
-        
+
         // تبديل ملء الشاشة
         function toggleFullscreen() {
             const button = document.querySelector('.fullscreen-btn i');
-            
+
             if (!document.fullscreenElement) {
                 document.documentElement.requestFullscreen().then(() => {
                     button.className = 'fas fa-compress';
@@ -387,10 +394,10 @@
                 });
             }
         }
-        
+
         // اختصارات لوحة المفاتيح
-        document.addEventListener('keydown', function(e) {
-            switch(e.key) {
+        document.addEventListener('keydown', function (e) {
+            switch (e.key) {
                 case 'Escape':
                     if (document.fullscreenElement) {
                         document.exitFullscreen();
@@ -416,12 +423,12 @@
                     break;
             }
         });
-        
+
         // تحميل الكتاب عند بدء الصفحة
         document.addEventListener('DOMContentLoaded', loadBookInfo);
-        
+
         // معالجة تغيير حالة ملء الشاشة
-        document.addEventListener('fullscreenchange', function() {
+        document.addEventListener('fullscreenchange', function () {
             const button = document.querySelector('.fullscreen-btn i');
             if (document.fullscreenElement) {
                 button.className = 'fas fa-compress';
@@ -431,4 +438,5 @@
         });
     </script>
 </body>
+
 </html>
