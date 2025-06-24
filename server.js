@@ -5,6 +5,7 @@ const path = require('path');
 const fs = require('fs');
 const pdfParse = require('pdf-parse');
 const { PDFDocument, StandardFonts, rgb } = require('pdf-lib');
+const { execFile } = require('child_process');
 
 const app = express();
 const PORT = process.env.PORT || 3000;
@@ -262,6 +263,46 @@ app.post('/api/watermark/:id', async (req, res) => {
         console.error('خطأ في إضافة العلامة المائية:', error);
         res.status(500).json({ error: 'حدث خطأ أثناء إضافة العلامة المائية' });
     }
+});
+
+// API لإضافة كلمة مرور (تشفير PDF)
+app.post('/api/encrypt/:id', (req, res) => {
+    const bookId = req.params.id;
+    const { userPassword, ownerPassword, keyLength } = req.body;
+
+    if (!userPassword && !ownerPassword) {
+        return res.status(400).json({ error: 'يجب إدخال كلمة مرور واحدة على الأقل' });
+    }
+
+    const bits = [40, 128, 256].includes(Number(keyLength)) ? Number(keyLength) : 256;
+
+    db.get('SELECT * FROM books WHERE id = ?', [bookId], (err, book) => {
+        if (err) {
+            return res.status(500).json({ error: err.message });
+        }
+
+        if (!book) {
+            return res.status(404).json({ error: 'الكتاب غير موجود' });
+        }
+
+        if (!fs.existsSync(book.file_path)) {
+            return res.status(404).json({ error: 'ملف الكتاب غير موجود' });
+        }
+
+        const inputPath = book.file_path;
+        const outputPath = inputPath + '.enc';
+        const args = ['--encrypt', userPassword || '', ownerPassword || '', bits.toString(), '--', inputPath, outputPath];
+
+        execFile('qpdf', args, (error, stdout, stderr) => {
+            if (error) {
+                console.error('خطأ في qpdf:', stderr || error.message);
+                return res.status(500).json({ error: 'حدث خطأ أثناء تشفير الملف' });
+            }
+
+            fs.renameSync(outputPath, inputPath);
+            res.json({ success: true, message: 'تم إضافة كلمة المرور بنجاح' });
+        });
+    });
 });
 
 // API لحذف كتاب
